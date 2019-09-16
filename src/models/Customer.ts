@@ -15,8 +15,8 @@ export default class Customer {
     }
 
     getDistance( {originLogitude, originLatitude}: {originLogitude: number, originLatitude: number} ): number {
-        let R = 6371e3; // metres
-
+        let earthRadius = MathUtils.getEarthRadius();
+        
         let customerLatInRad = MathUtils.convertFromDegreesToRadians(this.latitude);
         let originLatitudeInRad = MathUtils.convertFromDegreesToRadians(originLatitude);
 
@@ -27,7 +27,7 @@ export default class Customer {
 
         var c = Math.acos(segma);
         
-        let distanceInKm = R * c / 1000;
+        let distanceInKm = earthRadius * c / 1000;
 
         //Round to two decimals
         let result = +(distanceInKm.toFixed(2));

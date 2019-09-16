@@ -6,4 +6,8 @@ export default class MathUtils {
         return result;
     }
 
+    static getEarthRadius () {
+        return 6371e3;
+    }
+
 }
