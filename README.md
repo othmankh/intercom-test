@@ -9,6 +9,6 @@ To run the application:
 
 The default output file is /data/output.txt
 
-You can change that by having a look into the Solution class constructor.
+You can change that by having a look into the InvitationService class constructor.
 
 

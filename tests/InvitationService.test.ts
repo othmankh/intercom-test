@@ -1,30 +1,30 @@
-import Solution from "../src/Solution";
+import InvitationService from "../src/InvitationService";
 import FileUtils from "../src/utils/FileUtils";
 
-describe("Solution tests", () => {
+describe("invitationService tests", () => {
 
     it("should fail if input file doesn't exist", () => {
-        let solution = new Solution("data/customers2.txt");
+        let invitationService = new InvitationService("data/customers2.txt");
         expect(() => {
-            solution.printListOfInvitees();
+            invitationService.printListOfInvitees();
         }).toThrow("Input file doesn't exist");
     });
 
     it("should read 32 customers from the input file ", () => {
-        let solution = new Solution("data/customers.txt");
+        let invitationService = new InvitationService("data/customers.txt");
 
-        let customersList = solution.readCustomersListFromFile();
+        let customersList = invitationService.readCustomersListFromFile();
 
         expect(customersList).toBeDefined();
         expect(customersList.length).toBe(32);
     });
 
     it("should not return customers with distance more than 100 KM ", () => {
-        let solution = new Solution("data/customers.txt");
+        let invitationService = new InvitationService("data/customers.txt");
 
-        let customersList = solution.readCustomersListFromFile();
+        let customersList = invitationService.readCustomersListFromFile();
 
-        let customersWithinDistance = solution.getCustomersWithinDistance(customersList, 100);
+        let customersWithinDistance = invitationService.getCustomersWithinDistance(customersList, 100);
 
         for(let customer of customersWithinDistance) {
             let distance = customer.getDistance({
@@ -36,19 +36,19 @@ describe("Solution tests", () => {
     });
 
     it("should output file with results", () => {
-        
-        let solution = new Solution("data/customers.txt");
-        solution.printListOfInvitees();
+
+        let invitationService = new InvitationService("data/customers.txt");
+        invitationService.printListOfInvitees();
         expect(FileUtils.isFileExists("data/output.txt")).toBe(true);
     });
 
     it("should expect a sorted list based on userId", () => {
-        let solution = new Solution("data/customers.txt");
-        solution.printListOfInvitees();
+        let invitationService = new InvitationService("data/customers.txt");
+        invitationService.printListOfInvitees();
 
         //Use the existing functionality to read the output file to check that the output list is correct
-        let expectedSolution = new Solution("data/output.txt");
-        let customers = expectedSolution.readCustomersListFromFile();
+        let expectedinvitationService = new InvitationService("data/output.txt");
+        let customers = expectedinvitationService.readCustomersListFromFile();
 
         let actualResult = customers.every(function(value, index, array) {
              return index === 0 || array[index - 1].user_id <= (value.user_id)

@@ -1,7 +1,7 @@
 import FileUtils from "./utils/FileUtils";
 import Customer from "./models/Customer";
 
-export default class Solution {
+export default class InvitationService {
 
     private inputFilePath: string;
     private outputFilePath: string;
