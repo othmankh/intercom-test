@@ -1,7 +1,7 @@
 import InvitationService from "../src/InvitationService";
 import FileUtils from "../src/utils/FileUtils";
 
-describe("invitationService tests", () => {
+describe("Invitation Service tests", () => {
 
     it("should fail if input file doesn't exist", () => {
         let invitationService = new InvitationService({
