@@ -69,7 +69,7 @@ describe("Invitation Service tests", () => {
         let customersWithinDistance = invitationService.getCustomersWithinDistance(customersList, 100);
 
         for (let customer of customersWithinDistance) {
-            let distance = customer.getDistance({
+            let distance = customer.calculateDistance({
                 originLatitude: 53.339428,
                 originLogitude: -6.257664
             });

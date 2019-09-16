@@ -14,7 +14,7 @@ export default class Customer {
         this.longitude = longitude;
     }
 
-    getDistance( {originLogitude, originLatitude}: {originLogitude: number, originLatitude: number} ): number {
+    calculateDistance( {originLogitude, originLatitude}: {originLogitude: number, originLatitude: number} ): number {
         let earthRadius = MathUtils.getEarthRadius();
         
         let customerLatInRad = MathUtils.convertFromDegreesToRadians(this.latitude);

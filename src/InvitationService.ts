@@ -72,7 +72,7 @@ export default class InvitationService {
         let invitees: Customer[] = [];
 
         for (let customer of customers) {
-            let distance = customer.getDistance({
+            let distance = customer.calculateDistance({
                 originLatitude: this.originLatitude,
                 originLogitude: this.originLongitude
             });
