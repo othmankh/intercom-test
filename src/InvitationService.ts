@@ -21,15 +21,16 @@ export default class InvitationService {
     printListOfInvitees() {
         let customersList = this.readCustomersListFromFile();
         let customersWithinDistance = this.getCustomersWithinDistance(customersList, this.maxDistance);
+
         let sortedInviteesList = customersWithinDistance.sort((cus1, cus2) => cus1.user_id - cus2.user_id);
-        let sortedInviteesResult = sortedInviteesList.map(cus => {
+        let customisedSortedInvitees = sortedInviteesList.map(cus => {
             return JSON.stringify({
                 user_id: cus.user_id,
                 name: cus.name
             });
         });
-
-        let result = sortedInviteesResult.join("\n");
+        
+        let result = customisedSortedInvitees.join("\n");
         FileUtils.writeToFile(this.outputFilePath, result);
     }
 
