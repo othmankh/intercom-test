@@ -10,8 +10,11 @@ export default class FileService {
         fs.writeFileSync(path, content);
     }
 
-    static readFile(path: string){
-        return fs.readFileSync(path);
+    static readFileLines(path: string){
+        let fileData =  fs.readFileSync(path);
+        let stringFileData = fileData.toString();
+        let fileLines = stringFileData.split(/\r?\n/);
+        return fileLines;
     }
 
 }

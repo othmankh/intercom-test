@@ -1,4 +1,4 @@
-import Solution from "./Solution";
+import InvitationService from "./InvitationService";
 
-let solution =  new Solution("data/customers.txt");
+let solution =  new InvitationService("data/customers.txt");
 solution.printListOfInvitees();

@@ -10,6 +10,34 @@ describe("invitationService tests", () => {
         }).toThrow("Input file doesn't exist");
     });
 
+    it("should fail if one or more file records doesn't have latitude ", () => {
+        let invitationService = new InvitationService("tests/data/customers-no-latitude.txt");
+        expect(() => {
+            invitationService.printListOfInvitees();
+        }).toThrow("Customer latitude is not found");
+    });
+
+    it("should fail if one or more file records doesn't have longitude ", () => {
+        let invitationService = new InvitationService("tests/data/customers-no-longitude.txt");
+        expect(() => {
+            invitationService.printListOfInvitees();
+        }).toThrow("Customer longitude is not found");
+    });
+
+    it("should fail if one or more file records doesn't have name ", () => {
+        let invitationService = new InvitationService("tests/data/customers-no-name.txt");
+        expect(() => {
+            invitationService.printListOfInvitees();
+        }).toThrow("Customer name is not found");
+    });
+
+    it("should fail if one or more file records doesn't have user_id ", () => {
+        let invitationService = new InvitationService("tests/data/customers-no-userid.txt");
+        expect(() => {
+            invitationService.printListOfInvitees();
+        }).toThrow("Customer id is not found");
+    });
+
     it("should read 32 customers from the input file ", () => {
         let invitationService = new InvitationService("data/customers.txt");
 
@@ -46,9 +74,13 @@ describe("invitationService tests", () => {
         let invitationService = new InvitationService("data/customers.txt");
         invitationService.printListOfInvitees();
 
-        //Use the existing functionality to read the output file to check that the output list is correct
-        let expectedinvitationService = new InvitationService("data/output.txt");
-        let customers = expectedinvitationService.readCustomersListFromFile();
+        let customers = FileUtils.readFileLines("data/output.txt").map(cus => {
+            let cusJson = JSON.parse(cus);
+            return {
+                user_id: cusJson.user_id,
+                name: cusJson.name
+            }
+        });
 
         let actualResult = customers.every(function(value, index, array) {
              return index === 0 || array[index - 1].user_id <= (value.user_id)
