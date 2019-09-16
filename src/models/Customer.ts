@@ -14,7 +14,7 @@ export default class Customer {
         this.longitude = longitude;
     }
 
-    getDistance( {originLogitude, originLatitude}: {originLogitude: number, originLatitude: number} ): number {
+    getDistance2( {originLogitude, originLatitude}: {originLogitude: number, originLatitude: number} ): number {
         let earthRadius = MathUtils.getEarthRadius();
         
         let customerLatInRad = MathUtils.convertFromDegreesToRadians(this.latitude);
@@ -34,5 +34,28 @@ export default class Customer {
         
         return result;
     }
+
+    getDistance( {originLogitude, originLatitude}: {originLogitude: number, originLatitude: number} ): number {
+        let earthRadius = MathUtils.getEarthRadius();
+        
+        let customerLatInRad = MathUtils.convertFromDegreesToRadians(this.latitude);
+        let originLatitudeInRad = MathUtils.convertFromDegreesToRadians(originLatitude);
+
+        let longAbsDiff = MathUtils.convertFromDegreesToRadians(this.longitude - originLogitude);
+
+        let segma = Math.sqrt( Math.pow(Math.cos(originLatitudeInRad) * Math.sin(longAbsDiff), 2) +
+                    Math.pow((Math.cos(customerLatInRad) * Math.sin(originLatitudeInRad) - Math.sin(customerLatInRad) * Math.cos(originLatitudeInRad) * Math.cos(longAbsDiff)) , 2)) /
+                    (Math.sin(customerLatInRad) * Math.sin(originLatitudeInRad) + Math.cos(customerLatInRad) * Math.cos(originLatitudeInRad) * Math.cos(longAbsDiff));
+
+        var c = Math.atan(segma);
+        
+        let distanceInKm = earthRadius * c / 1000;
+
+        //Round to two decimals
+        let result = +(distanceInKm.toFixed(2));
+        
+        return result;
+    }
+
 
 }
