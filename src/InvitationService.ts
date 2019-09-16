@@ -8,8 +8,8 @@ export default class InvitationService {
     private originLatitude: number;
     private originLongitude: number;
     private maxDistance: number;
-    
-    constructor({inputFilePath, outputFilePath = "data/output.txt", originLatitude = 53.339428 ,originLongitude =  -6.257664, maxDistance = 100}: 
+
+    constructor({ inputFilePath, outputFilePath = "data/output.txt", originLatitude = 53.339428, originLongitude = -6.257664, maxDistance = 100 }:
         { inputFilePath: string, outputFilePath?: string, originLatitude?: number, originLongitude?: number, maxDistance?: number }) {
         this.inputFilePath = inputFilePath;
         this.originLatitude = originLatitude;
@@ -21,15 +21,16 @@ export default class InvitationService {
     printListOfInvitees() {
         let customersList = this.readCustomersListFromFile();
         let customersWithinDistance = this.getCustomersWithinDistance(customersList, this.maxDistance);
-        let sortedInviteesList = customersWithinDistance.sort((cus1, cus2) => cus1.user_id - cus2.user_id);
-        let sortedInviteesResult = sortedInviteesList.map(cus => {
+
+        let sortedInviteesList = customersWithinDistance.sort((customerA, customerB) => customerA.user_id - customerB.user_id);
+        let customisedSortedInvitees = sortedInviteesList.map(customer => {
             return JSON.stringify({
-                user_id: cus.user_id,
-                name: cus.name
+                user_id: customer.user_id,
+                name: customer.name
             });
         });
 
-        let result = sortedInviteesResult.join("\n");
+        let result = customisedSortedInvitees.join("\n");
         FileUtils.writeToFile(this.outputFilePath, result);
     }
 
@@ -46,23 +47,6 @@ export default class InvitationService {
         }
 
         return customersList;
-    }
-
-    getCustomersWithinDistance(customers: Customer[], maxDistance: number) {
-        let invitees: Customer[] = [];
-
-        for (let customer of customers) {
-            let distance = customer.getDistance({
-                originLatitude: this.originLatitude,
-                originLogitude: this.originLongitude
-            });
-
-            if (distance <= maxDistance) {
-                invitees.push(customer);
-            }
-
-        }
-        return invitees;
     }
 
     private getCustomer(customer: any): Customer {
@@ -84,4 +68,19 @@ export default class InvitationService {
         return new Customer(customerJson.latitude, customerJson.user_id, customerJson.name, customerJson.longitude)
     }
 
+    getCustomersWithinDistance(customers: Customer[], maxDistance: number) {
+        let invitees: Customer[] = [];
+
+        for (let customer of customers) {
+            let distance = customer.calculateDistance({
+                originLatitude: this.originLatitude,
+                originLogitude: this.originLongitude
+            });
+
+            if (distance <= maxDistance) {
+                invitees.push(customer);
+            }
+        }
+        return invitees;
+    }
 }

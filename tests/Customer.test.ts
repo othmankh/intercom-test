@@ -9,7 +9,7 @@ describe("Customer tests", () => {
 
         let customer = new Customer(52.986375, 12, "test", -6.043701);
 
-        let distance = customer.getDistance(
+        let distance = customer.calculateDistance(
             {
                 originLatitude: originLatitude,
                 originLogitude: originLongitude

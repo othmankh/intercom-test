@@ -1,7 +1,7 @@
 import InvitationService from "../src/InvitationService";
 import FileUtils from "../src/utils/FileUtils";
 
-describe("invitationService tests", () => {
+describe("Invitation Service tests", () => {
 
     it("should fail if input file doesn't exist", () => {
         let invitationService = new InvitationService({
@@ -69,7 +69,7 @@ describe("invitationService tests", () => {
         let customersWithinDistance = invitationService.getCustomersWithinDistance(customersList, 100);
 
         for (let customer of customersWithinDistance) {
-            let distance = customer.getDistance({
+            let distance = customer.calculateDistance({
                 originLatitude: 53.339428,
                 originLogitude: -6.257664
             });
