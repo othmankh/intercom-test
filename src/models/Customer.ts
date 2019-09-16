@@ -22,13 +22,14 @@ export default class Customer {
 
         let longAbsDiff = MathUtils.convertFromDegreesToRadians(this.longitude - originLogitude);
 
-        let a = Math.sin(customerLatInRad) * Math.sin(originLatitudeInRad) + 
+        let segma = Math.sin(customerLatInRad) * Math.sin(originLatitudeInRad) + 
                 Math.cos(customerLatInRad) * Math.cos(originLatitudeInRad) * Math.cos(longAbsDiff);
 
-        var c = Math.acos(a);
+        var c = Math.acos(segma);
         
         let distanceInKm = R * c / 1000;
 
+        //Round to two decimals
         let result = +(distanceInKm.toFixed(2));
         
         return result;
