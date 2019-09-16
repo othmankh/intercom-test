@@ -1,7 +1,7 @@
 import InvitationService from "./InvitationService";
 
-let solution =  new InvitationService({
+let invitaionService =  new InvitationService({
     inputFilePath: "data/customers.txt"
 });
 
-solution.printListOfInvitees();
+invitaionService.printListOfInvitees();
