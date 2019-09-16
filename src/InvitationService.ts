@@ -8,8 +8,9 @@ export default class InvitationService {
     private originLatitude: number;
     private originLongitude: number;
     private maxDistance: number;
-
-    constructor(inputFilePath: string, originLatitude: number = 53.339428, originLongitude: number = -6.257664, maxDistance: number = 100, outputFilePath: string = "data/output.txt") {
+    
+    constructor({inputFilePath, outputFilePath = "data/output.txt", originLatitude = 53.339428 ,originLongitude =  -6.257664, maxDistance = 100}: 
+        { inputFilePath: string, outputFilePath?: string, originLatitude?: number, originLongitude?: number, maxDistance?: number }) {
         this.inputFilePath = inputFilePath;
         this.originLatitude = originLatitude;
         this.originLongitude = originLongitude;
@@ -79,7 +80,7 @@ export default class InvitationService {
         if (!customerJson.longitude) {
             throw new Error("Customer longitude is not found");
         }
-        
+
         return new Customer(customerJson.latitude, customerJson.user_id, customerJson.name, customerJson.longitude)
     }
 
