@@ -19,7 +19,7 @@ export default class InvitationService {
     }
 
     printListOfInvitees() {
-        let customersList = this.readCustomersListFromFile();
+        let customersList = this.getAllCustomers();
         let customersWithinDistance = this.getCustomersWithinDistance(customersList, this.maxDistance);
 
         let sortedInviteesList = customersWithinDistance.sort((customerA, customerB) => customerA.user_id - customerB.user_id);
@@ -34,7 +34,7 @@ export default class InvitationService {
         FileUtils.writeToFile(this.outputFilePath, result);
     }
 
-    readCustomersListFromFile(): Customer[] {
+    getAllCustomers(): Customer[] {
         if (!FileUtils.isFileExists(this.inputFilePath)) {
             throw new Error("Input file doesn't exist");
         }
@@ -68,7 +68,7 @@ export default class InvitationService {
         return new Customer(customerJson.latitude, customerJson.user_id, customerJson.name, customerJson.longitude)
     }
 
-    getCustomersWithinDistance(customers: Customer[], maxDistance: number) {
+    getCustomersWithinDistance(customers: Customer[], maxDistance: number) : Customer []{
         let invitees: Customer[] = [];
 
         for (let customer of customers) {

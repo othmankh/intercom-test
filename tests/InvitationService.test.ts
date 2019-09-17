@@ -53,7 +53,7 @@ describe("Invitation Service tests", () => {
         let invitationService = new InvitationService({
             inputFilePath: "data/customers.txt"
         });
-        let customersList = invitationService.readCustomersListFromFile();
+        let customersList = invitationService.getAllCustomers();
 
         expect(customersList).toBeDefined();
         expect(customersList.length).toBe(32);
@@ -64,7 +64,7 @@ describe("Invitation Service tests", () => {
             inputFilePath: "data/customers.txt"
         });
 
-        let customersList = invitationService.readCustomersListFromFile();
+        let customersList = invitationService.getAllCustomers();
 
         let customersWithinDistance = invitationService.getCustomersWithinDistance(customersList, 100);
 
